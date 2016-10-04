@@ -7,9 +7,11 @@ export function changeCounter(number = 1){
 
 export function readFromLocalStorage(){
   let data = localStorage.getItem('smokingStoppedDate') ? localStorage.getItem('smokingStoppedDate'): Date.now()
+  let cigaretesPerDayCount = localStorage.getItem('cigaretesPerDayCount') ? localStorage.getItem('cigaretesPerDayCount'): 0
   return {
-    type: "START_DATE_CHANGED",
-    date: parseInt(data)
+    type: "DATA_CHANGED",
+    date: parseInt(data),
+    cigaretesPerDayCount: cigaretesPerDayCount
   }
 }
 
@@ -19,6 +21,21 @@ export function setStartDate(){
   return {
     type: "START_DATE_CHANGED",
     date: parseInt(data)
+  }
+}
+
+export function resetCount(value){
+  localStorage.setItem('cigaretesPerDayCount', value)
+  return {
+    type: "CIGARETTES_COUNT_CHANGED",
+    cigaretesPerDayCount: value
+  }
+}
+
+export function getCount(value){
+  return {
+    type: "CIGARETTES_COUNT",
+    cigaretesPerDayCount: localStorage.getItem('cigaretesPerDayCount') ? localStorage.getItem('cigaretesPerDayCount') : 0
   }
 }
 

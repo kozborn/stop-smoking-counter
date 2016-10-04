@@ -11,3 +11,38 @@ export function formatDate(date) {
 function _formatDate(date){
   return date.toLocaleDateString() + " " + date.toLocaleTimeString()
 }
+
+export function calculateTime(secondsElapsed){
+  let days = Math.floor(secondsElapsed / (60 * 60 * 24))
+  let hours = Math.floor((secondsElapsed - (days * 24 * 60 * 60)) / (60* 60))
+  let minutes = Math.floor((secondsElapsed - (days * 24 * 60 * 60) - (hours * 60 * 60)) / 60)
+  let seconds = Math.floor((secondsElapsed - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60)))
+  return {days, hours, minutes, seconds}
+}
+
+export function calculateCost(secondsElapsed){
+  let hours = Math.floor((secondsElapsed) / (60 * 60))
+  
+}
+
+export function formatCounter(secondsElapsed){
+  let {days, hours, minutes, seconds} = calculateTime(secondsElapsed);
+  let count = ""
+  count = `${seconds} seconds without cigarette.`
+  if(minutes)
+    if(minutes == 1)
+      count = `${minutes} minute and ` + count
+    else
+      count = `${minutes} minutes and ` + count
+  if(hours)
+    if(hours == 1)
+      count = `${hours} hour ` + count
+    else
+      count = `${hours} hours ` + count
+  if(days)
+    if(days == 1)
+      count = `${days} day, ` + count
+    else
+      count = `${days} days, ` + count
+  return count;
+}

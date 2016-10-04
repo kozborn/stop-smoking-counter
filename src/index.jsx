@@ -5,7 +5,7 @@ import reducer from './reducer';
 import {Provider} from 'react-redux';
 import {Router, Route, hashHistory} from 'react-router'
 import App from './app'
-import {WelcomeContainer} from './components/welcome'
+import {CounterContainer} from './components/counter'
 import {changeCounter} from './actions/actions'
 
 require("bootstrap-webpack!./bootstrap.config.js");
@@ -44,7 +44,7 @@ store.dispatch({
 });
 
 const routes = <Route component={App}>
-  <Route path="/" component={WelcomeContainer} />
+  <Route path="/" component={CounterContainer} />
 </Route>;
 
 ReactDOM.render(
