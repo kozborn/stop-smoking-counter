@@ -29,7 +29,13 @@ module.exports = {
         loader: 'react-hot!babel' // Include the react-hot loader
       },
       {test: /\.css$/, loader: 'style-loader!css-loader'},
-      {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'}
+      {test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader'},
+      {test: /\.less$/, loader: 'style-loader!css-loader!less-loader'},
+      // bootstrap
+      {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
+      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
+      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
     ]
   },
   resolve: {
@@ -50,6 +56,10 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(), // Wire in the hot loading plugin,
     new CopyWebpackPlugin([
       {from: './src/index.html'} // copy index.html to dist
-    ])
+    ]),
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
+    })
   ]
 };

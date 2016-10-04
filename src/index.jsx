@@ -8,6 +8,8 @@ import App from './app'
 import {WelcomeContainer} from './components/welcome'
 import {changeCounter} from './actions/actions'
 
+require("bootstrap-webpack!./bootstrap.config.js");
+
 const logger = store => next => action => {
   console.log('dispatching', action)
   let result = next(action)
