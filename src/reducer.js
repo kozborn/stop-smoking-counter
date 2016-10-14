@@ -24,9 +24,9 @@ export default function(state = Map(), action) {
         cigaretesBoxCost: action.cigaretesBoxCost
       })
     case 'CIGARETTES_COST_CHANGED':
-      return setState(state, {cigaretesCost: action.cigaretesCost})
+      return setState(state, {cigaretesBoxCost: action.cigaretesBoxCost})
     case 'CIGARETTES_IN_BOX_CHANGED':
-      return setState(state, {cigaretesCount: action.cigaretesCount})
+      return setState(state, {cigaretesInBox: action.cigaretesInBox})
     case 'CIGARETTES_COUNT_CHANGED':
       return setState(state, {cigaretesPerDayCount: action.cigaretesPerDayCount})
     case 'CHANGE': 

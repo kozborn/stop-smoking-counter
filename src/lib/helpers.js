@@ -31,6 +31,15 @@ export function calculateCost(secondsElapsed){
   let hours = Math.floor((secondsElapsed) / (60 * 60))
 }
 
+export function eachCigareteCost(totalPackCost, cigaretesCount){
+  return totalPackCost / cigaretesCount;
+}
+
+export function hourlyCost(totalPackCost, cigaretesCount, smokedPerDay){
+  return ((totalPackCost / cigaretesCount) * smokedPerDay) / 24 
+}
+
+
 export function formatCounter(secondsElapsed){
   let {days, hours, minutes, seconds} = calculateTime(secondsElapsed);
   let count = ""

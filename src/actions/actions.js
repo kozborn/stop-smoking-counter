@@ -39,7 +39,7 @@ export function resetCost(value){
   localStorage.setItem('cigaretesBoxCost', value)
   return {
     type: "CIGARETTES_COST_CHANGED",
-    cigaretesInBox: value
+    cigaretesBoxCost: value
   }
 }
 
