@@ -7,15 +7,15 @@ export function changeCounter(number = 1){
 
 export function readFromLocalStorage(){
   let data = localStorage.getItem('smokingStoppedDate') ? localStorage.getItem('smokingStoppedDate'): Date.now()
-  let cigaretesPerDayCount = localStorage.getItem('cigaretesPerDayCount') ? localStorage.getItem('cigaretesPerDayCount'): 0
-  let cigaretesInBox = localStorage.getItem('cigaretesInBox') ? localStorage.getItem('cigaretesInBox'): 20
-  let cigaretesBoxCost = localStorage.getItem('cigaretesBoxCost') ? localStorage.getItem('cigaretesBoxCost') : 20
+  let cigarettesPerDayCount = localStorage.getItem('cigarettesPerDayCount') ? localStorage.getItem('cigarettesPerDayCount'): 0
+  let cigarettesInBox = localStorage.getItem('cigarettesInBox') ? localStorage.getItem('cigarettesInBox'): 20
+  let cigarettesBoxCost = localStorage.getItem('cigarettesBoxCost') ? localStorage.getItem('cigarettesBoxCost') : 20
   return {
     type: "START_DATE_CHANGED",
     date: parseInt(data),
-    cigaretesPerDayCount: cigaretesPerDayCount,
-    cigaretesInBox: cigaretesInBox,
-    cigaretesBoxCost: cigaretesBoxCost
+    cigarettesPerDayCount: cigarettesPerDayCount,
+    cigarettesInBox: cigarettesInBox,
+    cigarettesBoxCost: cigarettesBoxCost
   }
 }
 
@@ -31,45 +31,45 @@ export function setStartDate(timestamp = null){
 export function getCost(value){
   return {
     type: "CIGARETTES_COST",
-    cigaretesBoxCost: localStorage.getItem('cigaretesBoxCost') ? localStorage.getItem('cigaretesBoxCost') : 20
+    cigarettesBoxCost: localStorage.getItem('cigarettesBoxCost') ? localStorage.getItem('cigarettesBoxCost') : 20
   }
 }
 
 export function resetCost(value){
-  localStorage.setItem('cigaretesBoxCost', value)
+  localStorage.setItem('cigarettesBoxCost', value)
   return {
     type: "CIGARETTES_COST_CHANGED",
-    cigaretesBoxCost: value
+    cigarettesBoxCost: value
   }
 }
 
 export function getCountInBox(value){
   return {
     type: "CIGARETTES_COUNT_IN_BOX",
-    cigaretesInBox: localStorage.getItem('cigaretesInBox') ? localStorage.getItem('cigaretesInBox') : 20
+    cigarettesInBox: localStorage.getItem('cigarettesInBox') ? localStorage.getItem('cigarettesInBox') : 20
   }
 }
 
 export function resetCountInBox(value){
-  localStorage.setItem('cigaretesInBox', value)
+  localStorage.setItem('cigarettesInBox', value)
   return {
     type: "CIGARETTES_IN_BOX_CHANGED",
-    cigaretesInBox: value
+    cigarettesInBox: value
   }
 }
 
 export function resetCountPerDay(value){
-  localStorage.setItem('cigaretesPerDayCount', value)
+  localStorage.setItem('cigarettesPerDayCount', value)
   return {
     type: "CIGARETTES_COUNT_CHANGED",
-    cigaretesPerDayCount: value
+    cigarettesPerDayCount: value
   }
 }
 
 export function getCount(value){
   return {
     type: "CIGARETTES_COUNT",
-    cigaretesPerDayCount: localStorage.getItem('cigaretesPerDayCount') ? localStorage.getItem('cigaretesPerDayCount') : 0
+    cigarettesPerDayCount: localStorage.getItem('cigarettesPerDayCount') ? localStorage.getItem('cigarettesPerDayCount') : 0
   }
 }
 

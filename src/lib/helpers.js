@@ -31,12 +31,12 @@ export function calculateCost(secondsElapsed){
   let hours = Math.floor((secondsElapsed) / (60 * 60))
 }
 
-export function eachCigareteCost(totalPackCost, cigaretesCount){
-  return totalPackCost / cigaretesCount;
+export function eachCigareteCost(totalPackCost, cigarettesCount){
+  return totalPackCost / cigarettesCount;
 }
 
-export function hourlyCost(totalPackCost, cigaretesCount, smokedPerDay){
-  return ((totalPackCost / cigaretesCount) * smokedPerDay) / 24 
+export function hourlyCost(totalPackCost, cigarettesCount, smokedPerDay){
+  return ((totalPackCost / cigarettesCount) * smokedPerDay) / 24 
 }
 
 

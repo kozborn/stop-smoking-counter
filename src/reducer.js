@@ -19,16 +19,16 @@ export default function(state = Map(), action) {
     case 'START_DATE_CHANGED':
       return setState(state, {
         date: action.date, 
-        cigaretesPerDayCount: action.cigaretesPerDayCount,
-        cigaretesInBox: action.cigaretesInBox,
-        cigaretesBoxCost: action.cigaretesBoxCost
+        cigarettesPerDayCount: action.cigarettesPerDayCount,
+        cigarettesInBox: action.cigarettesInBox,
+        cigarettesBoxCost: action.cigarettesBoxCost
       })
     case 'CIGARETTES_COST_CHANGED':
-      return setState(state, {cigaretesBoxCost: action.cigaretesBoxCost})
+      return setState(state, {cigarettesBoxCost: action.cigarettesBoxCost})
     case 'CIGARETTES_IN_BOX_CHANGED':
-      return setState(state, {cigaretesInBox: action.cigaretesInBox})
+      return setState(state, {cigarettesInBox: action.cigarettesInBox})
     case 'CIGARETTES_COUNT_CHANGED':
-      return setState(state, {cigaretesPerDayCount: action.cigaretesPerDayCount})
+      return setState(state, {cigarettesPerDayCount: action.cigarettesPerDayCount})
     case 'CHANGE': 
       return sum(state, action.number);
   }

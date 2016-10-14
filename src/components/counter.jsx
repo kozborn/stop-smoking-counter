@@ -11,18 +11,17 @@ import {CounterText} from './counter_text'
 
 export const Counter = React.createClass({
 
+  getInitialState() {
+     return {
+        cigarettesBoxCost: 0,
+        cigarettesInBox: 0,
+        cigarettesPerDayCount: 0
+      }
+  },
+
   componentDidMount() {
     this.props.readFromLocalStorage()
   },
-
-  // componentWillReceiveProps(nextProps) {
-  //   if(nextProps.cigaretesPerDayCount != this.state.cigaretesPerDayCount)
-  //     this.setState({cigaretesPerDayCount: nextProps.cigaretesPerDayCount})
-  //   if(nextProps.cigaretesInBox != this.state.cigaretesInBox)
-  //     this.setState({cigaretesInBox: nextProps.cigaretesInBox})
-  //   if(nextProps.cigaretesBoxCost != this.state.cigaretesBoxCost)
-  //     this.setState({cigaretesBoxCost: nextProps.cigaretesBoxCost})
-  // },
 
   updateDate(dateString, { dateMoment, timestamp}) {
     this.props.setDate(timestamp);
@@ -32,6 +31,7 @@ export const Counter = React.createClass({
     let value = 0
     if(e.target.value > 0)
       value = e.target.value
+    this.setState({cigarettesPerDayCount: value})
     this.props.resetCountPerDay(value)
   },
 
@@ -39,6 +39,7 @@ export const Counter = React.createClass({
     let value = 0
     if(e.target.value > 0)
       value = e.target.value
+    this.setState({cigarettesInBox: value})
     this.props.resetCountInBox(value)
   },
 
@@ -46,6 +47,7 @@ export const Counter = React.createClass({
     let value = 0
     if(e.target.value > 0)
       value = e.target.value
+    this.setState({cigarettesBoxCost: value})
     this.props.resetCost(value)
   },
 
@@ -70,12 +72,20 @@ export const Counter = React.createClass({
     else return null
   },
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      cigarettesBoxCost: nextProps.cigarettesBoxCost,
+      cigarettesInBox: nextProps.cigarettesInBox,
+      cigarettesPerDayCount: nextProps.cigarettesPerDayCount
+    })
+  },
+
   render() {
 
-    const {cigaretesBoxCost, cigaretesInBox, cigaretesPerDayCount} = this.props
+    const {cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount} = this.props
 
-    const cigareteCost = eachCigareteCost(cigaretesBoxCost, cigaretesInBox)
-    const hourCost = hourlyCost(cigaretesBoxCost, cigaretesInBox, cigaretesPerDayCount)
+    const cigareteCost = eachCigareteCost(cigarettesBoxCost, cigarettesInBox)
+    const hourCost = hourlyCost(cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount)
 
     return (
       <div className="row counter jumbotron">
@@ -86,20 +96,20 @@ export const Counter = React.createClass({
             <h4>Nicely done ! Keep up</h4>
             <div>
               <label>
-                How many cigaretes per day you were smoking?
-                <input type="number" value={cigaretesPerDayCount} onChange={this.resetCountPerDay} />
+                How many cigarettes per day you were smoking?
+                <input type="number" value={this.state.cigarettesPerDayCount} onChange={this.resetCountPerDay} />
               </label>
             </div>
             <div>
               <label>
                 How much cigarets is in the box?
-                <input type="number" value={cigaretesInBox} onChange={this.resetCountInBox} />
+                <input type="number" value={this.state.cigarettesInBox} onChange={this.resetCountInBox} />
               </label>
             </div>
             <div>
               <label>
-                How much pack of cigaretes costs?
-                <input type="number" value={cigaretesBoxCost} onChange={this.resetCost} />
+                How much pack of cigarettes costs?
+                <input type="number" value={this.state.cigarettesBoxCost} onChange={this.resetCost} />
               </label>
             </div>
             {this.getDateComponent()}
@@ -109,9 +119,9 @@ export const Counter = React.createClass({
         <div className="col-md-4">
           <Statistics
             quitDate={this.props.quitDate}
-            cigaretesPerDayCount={this.props.cigaretesPerDayCount}
-            cigaretesInBox={this.props.cigaretesInBox}
-            cigaretesBoxCost={this.props.cigaretesBoxCost}
+            cigarettesPerDayCount={this.props.cigarettesPerDayCount}
+            cigarettesInBox={this.props.cigarettesInBox}
+            cigarettesBoxCost={this.props.cigarettesBoxCost}
             cigareteCost={cigareteCost}
             hourCost={hourCost}
           />
@@ -126,9 +136,9 @@ const mapStateToProps = (state) => {
   return {
     message: state.getIn(['message']),
     quitDate: state.get('date'),
-    cigaretesPerDayCount: state.get('cigaretesPerDayCount'),
-    cigaretesInBox: state.get('cigaretesInBox'),
-    cigaretesBoxCost: state.get('cigaretesBoxCost')
+    cigarettesPerDayCount: state.get('cigarettesPerDayCount'),
+    cigarettesInBox: state.get('cigarettesInBox'),
+    cigarettesBoxCost: state.get('cigarettesBoxCost')
   };
 }
 
