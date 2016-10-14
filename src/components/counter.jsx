@@ -93,7 +93,6 @@ export const Counter = React.createClass({
           <div className="text-center">
             <h3>Quit smoking date {getDateString(this.props.quitDate)}</h3>
             <CounterText quitDate={this.props.quitDate} />
-            <h4>Nicely done ! Keep up</h4>
             <div>
               <label>
                 How many cigarettes per day you were smoking?
