@@ -16,8 +16,17 @@ export default function(state = Map(), action) {
   switch (action.type) {
     case 'SET_STATE':
       return setState(state, action.state);
-    case 'DATA_CHANGED':
-      return setState(state, {date: action.date, cigaretesPerDayCount: action.cigaretesPerDayCount})
+    case 'START_DATE_CHANGED':
+      return setState(state, {
+        date: action.date, 
+        cigaretesPerDayCount: action.cigaretesPerDayCount,
+        cigaretesInBox: action.cigaretesInBox,
+        cigaretesBoxCost: action.cigaretesBoxCost
+      })
+    case 'CIGARETTES_COST_CHANGED':
+      return setState(state, {cigaretesCost: action.cigaretesCost})
+    case 'CIGARETTES_IN_BOX_CHANGED':
+      return setState(state, {cigaretesCount: action.cigaretesCount})
     case 'CIGARETTES_COUNT_CHANGED':
       return setState(state, {cigaretesPerDayCount: action.cigaretesPerDayCount})
     case 'CHANGE': 

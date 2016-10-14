@@ -20,9 +20,15 @@ export function calculateTime(secondsElapsed){
   return {days, hours, minutes, seconds}
 }
 
+ export function getDateString(date){
+  let d = new Date(date)
+  let datestring = ("0" + d.getDate()).slice(-2) + "/" + ("0"+(d.getMonth()+1)).slice(-2) + "/" +
+  d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
+  return datestring;
+}
+
 export function calculateCost(secondsElapsed){
   let hours = Math.floor((secondsElapsed) / (60 * 60))
-  
 }
 
 export function formatCounter(secondsElapsed){

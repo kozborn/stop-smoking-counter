@@ -8,6 +8,8 @@ import App from './app'
 import {CounterContainer} from './components/counter'
 import {changeCounter} from './actions/actions'
 
+import 'react-date-picker/index.css'
+
 require("bootstrap-webpack!./bootstrap.config.js");
 
 const logger = store => next => action => {
@@ -22,12 +24,12 @@ const crashReporter = store => next => action => {
     return next(action)
   } catch (err) {
     console.error('Caught an exception!', err)
-    Raven.captureException(err, {
-      extra: {
-        action,
-        state: store.getState()
-      }
-    })
+    // Raven.captureException(err, {
+    //   extra: {
+    //     action,
+    //     state: store.getState()
+    //   }
+    // })
     throw err
   }
 }
