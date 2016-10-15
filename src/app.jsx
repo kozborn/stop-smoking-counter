@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default React.createClass({
+export const App = React.createClass({
 
   render: function () {
     return  <div className="container">

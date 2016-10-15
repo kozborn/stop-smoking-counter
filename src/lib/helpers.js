@@ -32,10 +32,12 @@ export function calculateCost(secondsElapsed){
 }
 
 export function eachCigareteCost(totalPackCost, cigarettesCount){
+  if(!cigarettesCount || cigarettesCount == 0) return 0
   return totalPackCost / cigarettesCount;
 }
 
 export function hourlyCost(totalPackCost, cigarettesCount, smokedPerDay){
+  if(!cigarettesCount || cigarettesCount == 0) return 0
   return ((totalPackCost / cigarettesCount) * smokedPerDay) / 24 
 }
 
@@ -60,4 +62,22 @@ export function formatCounter(secondsElapsed){
     else
       count = `${days} days, ` + count
   return count;
+}
+
+export function formatCounter2(secondsElapsed){
+  let {days, hours, minutes, seconds} = calculateTime(secondsElapsed);
+  let count = ""
+  seconds = ("0"+seconds).slice(-2)
+  minutes = ("0"+minutes).slice(-2)
+  hours = ("0"+hours).slice(-2)
+  count = `${seconds}`
+  if(minutes)
+    count = `${minutes}:` + count
+  if(hours)
+    count = `${hours}:` + count
+  if(days)
+    count = `${days} d, ` + count
+
+  const text = "Time without cigarettes: " + count
+  return text;
 }

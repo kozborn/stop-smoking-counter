@@ -5,7 +5,8 @@ import reducer from './reducer';
 import {Provider} from 'react-redux';
 import {Router, Route, hashHistory} from 'react-router'
 import App from './app'
-import {CounterContainer} from './components/counter'
+import { CounterContainer } from './components/counter'
+import { PageContainer } from './components/page'
 import {changeCounter} from './actions/actions'
 
 import 'react-date-picker/index.css'
@@ -40,13 +41,12 @@ const store = createStore(reducer, applyMiddleware(logger, crashReporter));
 store.dispatch({
   type: 'SET_STATE',
   state: {
-    message: "Welcome in As Simple As Possible",
     quitDate: null
   }
 });
 
 const routes = <Route component={App}>
-  <Route path="/" component={CounterContainer} />
+  <Route path="/" component={PageContainer} />
 </Route>;
 
 ReactDOM.render(

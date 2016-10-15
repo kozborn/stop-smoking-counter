@@ -1,13 +1,10 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {connect} from 'react-redux';
-import {setStartDate, readFromLocalStorage, resetCountPerDay, getCount, resetCountInBox, getCountInBox, resetCost} from '../actions/actions'
-import {formatDate, formatCounter, getDateString,
-  eachCigareteCost,
-  hourlyCost} from '../lib/helpers'
+import {reset, setStartDate, readFromLocalStorage, resetCountPerDay, getCount, resetCountInBox, getCountInBox, resetCost} from '../actions/actions'
+import {formatDate, formatCounter, getDateString} from '../lib/helpers'
 import { DateField, TransitionView, Calendar } from 'react-date-picker'
 import { Statistics } from './statistics'
-import {CounterText} from './counter_text'
 
 export const Counter = React.createClass({
 
@@ -84,46 +81,45 @@ export const Counter = React.createClass({
 
     const {cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount} = this.props
 
-    const cigareteCost = eachCigareteCost(cigarettesBoxCost, cigarettesInBox)
-    const hourCost = hourlyCost(cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount)
-
     return (
-      <div className="row counter jumbotron">
-        <div className="col-md-8">
-          <div className="text-center">
-            <h3>Quit smoking date {getDateString(this.props.quitDate)}</h3>
-            <CounterText quitDate={this.props.quitDate} />
-            <div>
-              <label>
-                How many cigarettes per day you were smoking?
-                <input type="number" value={this.state.cigarettesPerDayCount} onChange={this.resetCountPerDay} />
-              </label>
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="jumbotron">
+            <div className="row">
+              <div className="col-md-8">
+                <div className="text-center">
+                  <div>
+                    <label>
+                      How many cigarettes per day you were smoking?
+                      <input type="number" value={this.state.cigarettesPerDayCount} onChange={this.resetCountPerDay} />
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      How much cigarettes is in the box?
+                      <input type="number" value={this.state.cigarettesInBox} onChange={this.resetCountInBox} />
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                      How much pack of cigarettes costs?
+                      <input type="number" value={this.state.cigarettesBoxCost} onChange={this.resetCost} />
+                    </label>
+                  </div>
+                  {this.getDateComponent()}
+                  <button className="btn btn-lg btn-success" onClick={this.props.reset}>Start quitting now!</button>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <Statistics
+                  quitDate={this.props.quitDate}
+                  cigarettesPerDayCount={this.props.cigarettesPerDayCount}
+                  cigarettesInBox={this.props.cigarettesInBox}
+                  cigarettesBoxCost={this.props.cigarettesBoxCost}
+                />
+              </div>
             </div>
-            <div>
-              <label>
-                How much cigarets is in the box?
-                <input type="number" value={this.state.cigarettesInBox} onChange={this.resetCountInBox} />
-              </label>
-            </div>
-            <div>
-              <label>
-                How much pack of cigarettes costs?
-                <input type="number" value={this.state.cigarettesBoxCost} onChange={this.resetCost} />
-              </label>
-            </div>
-            {this.getDateComponent()}
-            <button className="btn btn-lg btn-success" onClick={this.props.start}>Start quitting now!</button>
           </div>
-        </div>
-        <div className="col-md-4">
-          <Statistics
-            quitDate={this.props.quitDate}
-            cigarettesPerDayCount={this.props.cigarettesPerDayCount}
-            cigarettesInBox={this.props.cigarettesInBox}
-            cigarettesBoxCost={this.props.cigarettesBoxCost}
-            cigareteCost={cigareteCost}
-            hourCost={hourCost}
-          />
         </div>
       </div>
     );
@@ -143,9 +139,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    start: () => {
-      dispatch(setStartDate());
-    },
+    reset: () => dispatch(reset()),
     setDate: (timestamp) => {
       dispatch(setStartDate(timestamp))
     },
@@ -156,4 +150,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const  CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);
+export const CounterContainer = connect(mapStateToProps, mapDispatchToProps)(Counter);

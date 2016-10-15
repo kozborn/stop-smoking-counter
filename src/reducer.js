@@ -14,6 +14,13 @@ export function setDate(state, date) {
 
 export default function(state = Map(), action) {
   switch (action.type) {
+    case 'RESET_DATA': 
+      return setState(state, {
+        date: Date.now(), 
+        cigarettesPerDayCount: 0,
+        cigarettesInBox: 0,
+        cigarettesBoxCost: 0
+      })
     case 'SET_STATE':
       return setState(state, action.state);
     case 'START_DATE_CHANGED':

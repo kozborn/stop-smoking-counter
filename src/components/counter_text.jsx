@@ -1,5 +1,5 @@
 import React from 'react'
-import {formatCounter} from '../lib/helpers'
+import {formatCounter, formatCounter2} from '../lib/helpers'
 
 export const CounterText = React.createClass({
 
@@ -25,7 +25,7 @@ export const CounterText = React.createClass({
     if(!this.props.quitDate)
       return 'Start quitting'
     const secondsElapsed = Math.floor((date - this.props.quitDate) / 1000)
-    return formatCounter(secondsElapsed)
+    return formatCounter2(secondsElapsed)
   },
 
   componentDidMount() {
