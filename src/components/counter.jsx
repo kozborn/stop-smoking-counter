@@ -50,9 +50,11 @@ export const Counter = React.createClass({
 
   getDateComponent(){
     if(this.props.quitDate){
-      return (<div>
-          <label>
+      return (<div className="form-item row">
+          <label className="col-md-6 text-right">
             Change your quit date
+          </label>
+          <div className="col-md-6">
             <DateField
               dateFormat="YYYY-MM-DD HH:mm:ss"
               forceValidDate={true}
@@ -62,7 +64,7 @@ export const Counter = React.createClass({
                 <Calendar onChange={this.updateDate} />
               </TransitionView>
             </DateField>
-          </label>
+          </div>
         </div>
       )
     }
@@ -77,6 +79,17 @@ export const Counter = React.createClass({
     })
   },
 
+  _formItem(label, value, onChangeCb){
+    return (<div className="form-item row">
+              <label className="col-md-6 text-right">
+                {label}
+              </label>
+              <div className="col-md-6">
+                <input className="form-control"type="number" value={value} onChange={onChangeCb} />
+              </div>
+            </div>
+  )},
+
   render() {
 
     const {cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount} = this.props
@@ -87,27 +100,14 @@ export const Counter = React.createClass({
           <div className="jumbotron">
             <div className="row">
               <div className="col-md-8">
-                <div className="text-center">
-                  <div>
-                    <label>
-                      How many cigarettes per day you were smoking?
-                      <input type="number" value={this.state.cigarettesPerDayCount} onChange={this.resetCountPerDay} />
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      How much cigarettes is in the box?
-                      <input type="number" value={this.state.cigarettesInBox} onChange={this.resetCountInBox} />
-                    </label>
-                  </div>
-                  <div>
-                    <label>
-                      How much pack of cigarettes costs?
-                      <input type="number" value={this.state.cigarettesBoxCost} onChange={this.resetCost} />
-                    </label>
-                  </div>
+                <div className="information-form">
+                  {this._formItem("How many cigarettes per day you were smoking?", this.state.cigarettesPerDayCount, this.resetCountPerDay)}
+                  {this._formItem("How much cigarettes is in the box?", this.state.cigarettesInBox, this.resetCountInBox)}
+                  {this._formItem("How much pack of cigarettes costs?", this.state.cigarettesBoxCost, this.resetCost)}
                   {this.getDateComponent()}
+                <div className="text-center button-row">
                   <button className="btn btn-lg btn-success" onClick={this.props.reset}>Start quitting now!</button>
+                </div>
                 </div>
               </div>
               <div className="col-md-4">

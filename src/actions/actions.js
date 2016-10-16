@@ -19,7 +19,7 @@ export function readFromLocalStorage(){
   }
 }
 
-export function reset(){ 
+export function reset(){
   let data = Date.now();
   localStorage.setItem('smokingStoppedDate', parseInt(data))
   localStorage.setItem('cigarettesBoxCost', 0)

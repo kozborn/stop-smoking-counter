@@ -7,7 +7,7 @@ import { CounterText } from './counter_text'
 export const Page = React.createClass({
 
   render(){
-    return (<div className="fluid-container">
+    return (<div className="container-fluid">
       <div className="row">
         <div className="col-lg-12">
           <h3 className="text-center">Quit smoking date {getDateString(this.props.quitDate)}</h3>
