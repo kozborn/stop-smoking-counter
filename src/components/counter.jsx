@@ -1,7 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {connect} from 'react-redux';
-import {reset, setStartDate, readFromLocalStorage, resetCountPerDay, getCount, resetCountInBox, getCountInBox, resetCost} from '../actions/actions'
+import {reset, setStartDate, readFromLocalStorage, resetCountPerDay, getCount, resetCountInBox, getCountInBox, resetCost, setCurrentStatistic} from '../actions/actions'
 import {formatDate, formatCounter, getDateString} from '../lib/helpers'
 import { DateField, TransitionView, Calendar } from 'react-date-picker'
 import { Statistics } from './statistics'
@@ -14,10 +14,6 @@ export const Counter = React.createClass({
         cigarettesInBox: 0,
         cigarettesPerDayCount: 0
       }
-  },
-
-  componentDidMount() {
-    this.props.readFromLocalStorage()
   },
 
   updateDate(dateString, { dateMoment, timestamp}) {
@@ -90,10 +86,13 @@ export const Counter = React.createClass({
             </div>
   )},
 
+  changeCurrentStatistic(value){
+    this.props.setCurrentStatistic(value);
+  },
+
   render() {
 
     const {cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount} = this.props
-
     return (
       <div className="row">
         <div className="col-lg-12">
@@ -116,6 +115,7 @@ export const Counter = React.createClass({
                   cigarettesPerDayCount={this.props.cigarettesPerDayCount}
                   cigarettesInBox={this.props.cigarettesInBox}
                   cigarettesBoxCost={this.props.cigarettesBoxCost}
+                  changeStatistic={this.changeCurrentStatistic}
                 />
               </div>
             </div>
@@ -129,11 +129,7 @@ export const Counter = React.createClass({
 
 const mapStateToProps = (state) => {
   return {
-    message: state.getIn(['message']),
-    quitDate: state.get('date'),
-    cigarettesPerDayCount: state.get('cigarettesPerDayCount'),
-    cigarettesInBox: state.get('cigarettesInBox'),
-    cigarettesBoxCost: state.get('cigarettesBoxCost')
+    message: state.getIn(['message'])
   };
 }
 
@@ -146,7 +142,8 @@ const mapDispatchToProps = (dispatch) => {
     readFromLocalStorage: () => dispatch(readFromLocalStorage()),
     resetCountPerDay: (value) => dispatch(resetCountPerDay(value)),
     resetCountInBox: (value) => dispatch(resetCountInBox(value)),
-    resetCost: (value) => dispatch(resetCost(value))
+    resetCost: (value) => dispatch(resetCost(value)),
+    setCurrentStatistic: (value) => dispatch(setCurrentStatistic(value))
   }
 }
 

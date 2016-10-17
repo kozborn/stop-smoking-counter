@@ -10,12 +10,14 @@ export function readFromLocalStorage(){
   let cigarettesPerDayCount = localStorage.getItem('cigarettesPerDayCount') ? localStorage.getItem('cigarettesPerDayCount'): 0
   let cigarettesInBox = localStorage.getItem('cigarettesInBox') ? localStorage.getItem('cigarettesInBox'): 20
   let cigarettesBoxCost = localStorage.getItem('cigarettesBoxCost') ? localStorage.getItem('cigarettesBoxCost') : 20
+  let currentStatistic = localStorage.getItem('currentStatistic') ? localStorage.getItem('currentStatistic') : "secondsElapsed"
   return {
     type: "START_DATE_CHANGED",
     date: parseInt(data),
     cigarettesPerDayCount: cigarettesPerDayCount,
     cigarettesInBox: cigarettesInBox,
-    cigarettesBoxCost: cigarettesBoxCost
+    cigarettesBoxCost: cigarettesBoxCost,
+    currentStatistic: currentStatistic
   }
 }
 
@@ -39,7 +41,23 @@ export function setStartDate(timestamp = null){
   }
 }
 
-export function getCost(value){
+export function setCurrentStatistic(currentStatistic = "secondsElapsed"){
+  localStorage.setItem('currentStatistic', currentStatistic)
+  return {
+    type: "SET_CURRENT_STATISTIC",
+    currentStatistic: currentStatistic
+  }
+}
+
+export function getCurrentStatistic(){
+  return {
+    type: "GET_CURRENT_STATISTIC",
+    currentStatistic: localStorage.getItem('currentStatistic') ? localStorage.getItem('currentStatistic') : "secondsElapsed"
+  }
+}
+
+
+export function getCost(){
   return {
     type: "CIGARETTES_COST",
     cigarettesBoxCost: localStorage.getItem('cigarettesBoxCost') ? localStorage.getItem('cigarettesBoxCost') : 20
@@ -54,7 +72,7 @@ export function resetCost(value){
   }
 }
 
-export function getCountInBox(value){
+export function getCountInBox(){
   return {
     type: "CIGARETTES_COUNT_IN_BOX",
     cigarettesInBox: localStorage.getItem('cigarettesInBox') ? localStorage.getItem('cigarettesInBox') : 20
@@ -77,7 +95,7 @@ export function resetCountPerDay(value){
   }
 }
 
-export function getCount(value){
+export function getCount(){
   return {
     type: "CIGARETTES_COUNT",
     cigarettesPerDayCount: localStorage.getItem('cigarettesPerDayCount') ? localStorage.getItem('cigarettesPerDayCount') : 0

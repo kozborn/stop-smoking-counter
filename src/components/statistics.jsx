@@ -7,7 +7,7 @@ const StatisticElement = React.createClass({
   },
 
   render() {
-    return <dl className="dl-horizontal">
+    return <dl className="dl-horizontal" onClick={this.props.onClick}>
       <dt className="text-large label">{this.props.label}</dt>
       <dd className="value">{this.props.value}</dd>
     </dl>
@@ -63,6 +63,10 @@ export const Statistics = React.createClass({
     return hourCost / 3600
   },
 
+  _changeCurrentStatistic(value, e) {
+    this.props.changeStatistic(value);
+  },
+
   render() {
     const {quitDate, cigarettesPerDayCount, cigarettesBoxCost, cigarettesInBox} = this.props
     const cigareteCost = eachCigareteCost(cigarettesBoxCost, cigarettesInBox)
@@ -70,17 +74,17 @@ export const Statistics = React.createClass({
     return(<div className="sidebar-statistic">
       <h4>Information about your statistics</h4>
       <div>
-        <StatisticElement label="Quit date:" value={getDateString(quitDate)} />
-        <StatisticElement label="Cigarettes smoked per day:" value={cigarettesPerDayCount} />
-        <StatisticElement label="Cigarettes cost:" value= {cigarettesBoxCost} PLN />
-        <StatisticElement label="Cigarettes in pack:" value= {cigarettesInBox} />
-        <StatisticElement label="Single cigarete cost:" value= {parseFloat(cigareteCost).toFixed(4)} PLN />
-        <StatisticElement label="Single hour cost:" value= {parseFloat(hourCost).toFixed(4)} PLN />
-        <StatisticElement label="Seconds elapsed:" value= {this.state.secondsElapsed} />
-        <StatisticElement label="Minutes elapsed:" value= {this.calculateMinutes()} />
-        <StatisticElement label="Hours elapsed:" value= {this.calculateHours()} />
-        <StatisticElement label="Savings each second:" value= {parseFloat(this.calculateSavingsEachSecond(hourCost)).toFixed(4)} />
-        <StatisticElement label="Already saved:" value= {this.state.alreadySaved} PLN />
+        <StatisticElement label="Quit date:" value={getDateString(quitDate)} onClick={this._changeCurrentStatistic.bind(this, 'quitDate')}/>
+        <StatisticElement label="Cigarettes smoked per day:" value={cigarettesPerDayCount} onClick={this._changeCurrentStatistic.bind(this, 'cigarettesPerDayCount')}/>
+        <StatisticElement label="Cigarettes cost:" value= {cigarettesBoxCost} onClick={this._changeCurrentStatistic.bind(this, 'cigarettesBoxCost')} />
+        <StatisticElement label="Cigarettes in pack:" value= {cigarettesInBox} onClick={this._changeCurrentStatistic.bind(this, 'cigarettesInBox')}/>
+        <StatisticElement label="Single cigarete cost:" value= {parseFloat(cigareteCost).toFixed(4)} onClick={this._changeCurrentStatistic.bind(this, 'cigareteCost')} />
+        <StatisticElement label="Single hour cost:" value= {parseFloat(hourCost).toFixed(4)} onClick={this._changeCurrentStatistic.bind(this, 'hourCost')} />
+        <StatisticElement label="Seconds elapsed:" value= {this.state.secondsElapsed} onClick={this._changeCurrentStatistic.bind(this, 'secondsElapsed')}/>
+        <StatisticElement label="Minutes elapsed:" value= {this.calculateMinutes()} onClick={this._changeCurrentStatistic.bind(this, 'calculateMinutes')}/>
+        <StatisticElement label="Hours elapsed:" value= {this.calculateHours()} onClick={this._changeCurrentStatistic.bind(this, 'calculateHours')}/>
+        <StatisticElement label="Savings each second:" value= {parseFloat(this.calculateSavingsEachSecond(hourCost)).toFixed(4)}  onClick={this._changeCurrentStatistic.bind(this, 'calculateSavingsEachSecond')}/>
+        <StatisticElement label="Already saved:" value= {this.state.alreadySaved} onClick={this._changeCurrentStatistic.bind(this, 'alreadySaved')}/>
       </div>
     </div>
     )

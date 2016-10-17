@@ -12,6 +12,10 @@ export function setDate(state, date) {
   return state.set('quitDate', date)
 }
 
+export function currentStatistic(state, choice) {
+  return state.set('currentStatistic', choice)
+}
+
 export default function(state = Map(), action) {
   switch (action.type) {
     case 'RESET_DATA': 
@@ -19,7 +23,8 @@ export default function(state = Map(), action) {
         date: Date.now(), 
         cigarettesPerDayCount: 0,
         cigarettesInBox: 0,
-        cigarettesBoxCost: 0
+        cigarettesBoxCost: 0,
+        currentStatistic: "secondsElapsed"
       })
     case 'SET_STATE':
       return setState(state, action.state);
@@ -28,7 +33,8 @@ export default function(state = Map(), action) {
         date: action.date, 
         cigarettesPerDayCount: action.cigarettesPerDayCount,
         cigarettesInBox: action.cigarettesInBox,
-        cigarettesBoxCost: action.cigarettesBoxCost
+        cigarettesBoxCost: action.cigarettesBoxCost,
+        currentStatistic: action.currentStatistic
       })
     case 'CIGARETTES_COST_CHANGED':
       return setState(state, {cigarettesBoxCost: action.cigarettesBoxCost})
@@ -38,6 +44,8 @@ export default function(state = Map(), action) {
       return setState(state, {cigarettesPerDayCount: action.cigarettesPerDayCount})
     case 'CHANGE': 
       return sum(state, action.number);
+    case 'SET_CURRENT_STATISTIC':
+      return setState(state, {currentStatistic: action.currentStatistic})
   }
   return state;
 }
