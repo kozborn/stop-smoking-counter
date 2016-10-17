@@ -8,6 +8,7 @@ import App from './app'
 import { CounterContainer } from './components/counter'
 import { PageContainer } from './components/page'
 import {changeCounter} from './actions/actions'
+import thunk from 'redux-thunk'
 
 import 'react-date-picker/index.css'
 
@@ -37,7 +38,7 @@ const crashReporter = store => next => action => {
 
 require('./styles/stylus.styl')
 
-const store = createStore(reducer, applyMiddleware(logger, crashReporter));
+const store = createStore(reducer, applyMiddleware(thunk, logger, crashReporter));
 store.dispatch({
   type: 'SET_STATE',
   state: {

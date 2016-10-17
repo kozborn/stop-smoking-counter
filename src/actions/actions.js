@@ -1,3 +1,5 @@
+const url = "http://piotrkozubek.pl:5984/stop-smoking" 
+
 export function changeCounter(number = 1){
   return {
     type: 'CHANGE',
