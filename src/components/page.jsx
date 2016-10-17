@@ -3,12 +3,19 @@ import {connect} from 'react-redux';
 import { CounterContainer} from './counter'
 import { CounterText } from './counter_text'
 import { StatisticHeader} from './statistic_header'
-import { readFromLocalStorage } from '../actions/actions'
+import { readFromLocalStorage, readFromCouchDB} from '../actions/actions'
 
 export const Page = React.createClass({
 
   componentDidMount() {
-    this.props.readFromLocalStorage()
+    if(this.props.params && this.props.params.docId)
+      this.props.readFromCouchDB(this.props.params.docId)
+    else
+      this.props.readFromLocalStorage()
+  },
+
+  getWelcomeUserText(){
+     return this.props.name ? <h1>Hi {this.props.name}</h1> : null
   },
 
   render(){
@@ -16,6 +23,7 @@ export const Page = React.createClass({
       <div className="row">
         <div className="col-lg-12">
           <div className="counter-text text-center">
+            {this.getWelcomeUserText()}
             <CounterText quitDate={this.props.quitDate} />
           </div>
           <StatisticHeader 
@@ -41,6 +49,7 @@ export const Page = React.createClass({
 
 const mapStateToProps = (state) => {
   return {
+    name: state.get('name'),
     quitDate: state.get('date'),
     currentStatistic: state.get('currentStatistic'),
     cigarettesPerDayCount: state.get('cigarettesPerDayCount'),
@@ -51,7 +60,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    readFromLocalStorage: () => dispatch(readFromLocalStorage())
+    readFromLocalStorage: () => dispatch(readFromLocalStorage()),
+    readFromCouchDB: (docId) => dispatch(readFromCouchDB(docId))
   }
 }
 

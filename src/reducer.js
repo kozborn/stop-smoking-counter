@@ -28,9 +28,10 @@ export default function(state = Map(), action) {
       })
     case 'SET_STATE':
       return setState(state, action.state);
-    case 'START_DATE_CHANGED':
+    case 'DATA_CHANGED':
       return setState(state, {
-        date: action.date, 
+        date: action.date,
+        name: action.name,
         cigarettesPerDayCount: action.cigarettesPerDayCount,
         cigarettesInBox: action.cigarettesInBox,
         cigarettesBoxCost: action.cigarettesBoxCost,

@@ -47,6 +47,7 @@ store.dispatch({
 });
 
 const routes = <Route component={App}>
+  <Route path="/:docId" component={PageContainer} />
   <Route path="/" component={PageContainer} />
 </Route>;
 

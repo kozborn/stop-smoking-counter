@@ -1,4 +1,5 @@
 const url = "http://piotrkozubek.pl:5984/stop-smoking" 
+import {fromJS} from 'immutable'
 
 export function changeCounter(number = 1){
   return {
@@ -14,7 +15,7 @@ export function readFromLocalStorage(){
   let cigarettesBoxCost = localStorage.getItem('cigarettesBoxCost') ? localStorage.getItem('cigarettesBoxCost') : 20
   let currentStatistic = localStorage.getItem('currentStatistic') ? localStorage.getItem('currentStatistic') : "secondsElapsed"
   return {
-    type: "START_DATE_CHANGED",
+    type: "DATA_CHANGED",
     date: parseInt(data),
     cigarettesPerDayCount: cigarettesPerDayCount,
     cigarettesInBox: cigarettesInBox,
@@ -38,7 +39,7 @@ export function setStartDate(timestamp = null){
   let data = timestamp ? timestamp : Date.now();
   localStorage.setItem('smokingStoppedDate', parseInt(data))
   return {
-    type: "START_DATE_CHANGED",
+    type: "DATA_CHANGED",
     date: parseInt(data)
   }
 }
@@ -104,11 +105,43 @@ export function getCount(){
   }
 }
 
-export function updateCounter(){
-  let sec = 0
-  let min = 0
-  let hour = 0
-  let days = 0
-  let months = 0
-  let years = 0
+export function fetchingStart(){
+  return{
+    type: "FETCHING_START"
+  }
+}
+
+export function fetchingStop(){
+  return{
+    type: "FETCHING_STOP"
+  }
+}
+
+export function readFromCouchDB(docId){
+  return function(dispatch){
+    dispatch(fetchingStart())
+    $.ajax({
+      url: url + "/" + docId
+    })
+    .done(function( data ) {
+      const fetched = fromJS(JSON.parse(data))
+      dispatch({
+        type: "DATA_CHANGED",
+        docId: fetched.get('_id'),
+        rev: fetched.get('rev'),
+        name: fetched.get('name'),
+        date: parseInt(fetched.get('smokingStoppedDate')),
+        cigarettesPerDayCount: fetched.get('cigarettesPerDayCount'),
+        cigarettesInBox: fetched.get('cigarettesInBox'),
+        cigarettesBoxCost: fetched.get('cigarettesBoxCost'),
+        currentStatistic: fetched.get('currentStatistic')
+      })
+      dispatch(fetchingStop())
+    })
+  }
+
+}
+
+export function save(docId, data){
+
 }
