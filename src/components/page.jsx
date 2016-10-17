@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux';
 import { CounterContainer} from './counter'
-import { getDateString } from '../lib/helpers'
 import { CounterText } from './counter_text'
 import { StatisticHeader} from './statistic_header'
 import { readFromLocalStorage } from '../actions/actions'
@@ -16,7 +15,6 @@ export const Page = React.createClass({
     return (<div className="container-fluid">
       <div className="row">
         <div className="col-lg-12">
-          <h3 className="text-center">Quit smoking date {getDateString(this.props.quitDate)}</h3>
           <div className="counter-text text-center">
             <CounterText quitDate={this.props.quitDate} />
           </div>
