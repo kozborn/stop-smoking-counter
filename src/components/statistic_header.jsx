@@ -116,7 +116,7 @@ calculateSeconds(timestamp) {
   getHeader() {
     const label = this.getLabel()
     const value = this.getValue()
-    return <h1>{label} : {value}</h1>
+    return <h1>{label} : <strong>{value}</strong></h1>
   },
 
   render(){

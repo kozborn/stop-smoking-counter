@@ -15,7 +15,7 @@ export const Page = React.createClass({
   },
 
   getWelcomeUserText(){
-     return this.props.name ? <h1>Hi {this.props.name}</h1> : null
+     return this.props.name ? <h2>Hi {this.props.name}</h2> : null
   },
 
   render(){

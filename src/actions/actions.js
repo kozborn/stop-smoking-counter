@@ -118,7 +118,7 @@ export function fetchingStop(){
 }
 
 export function readFromCouchDB(docId){
-  return function(dispatch){
+  return function(dispatch, getState){
     dispatch(fetchingStart())
     $.ajax({
       url: url + "/" + docId

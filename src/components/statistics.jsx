@@ -7,10 +7,10 @@ const StatisticElement = React.createClass({
   },
 
   render() {
-    return <dl className="dl-horizontal" onClick={this.props.onClick}>
-      <dt className="text-large label">{this.props.label}</dt>
-      <dd className="value">{this.props.value}</dd>
-    </dl>
+    return <div className="row" onClick={this.props.onClick}>
+      <div className="label text-right col-md-6">{this.props.label}</div>
+      <div className="value col-md-6">{this.props.value}</div>
+    </div>
   }
 })
 
@@ -72,7 +72,6 @@ export const Statistics = React.createClass({
     const cigareteCost = eachCigareteCost(cigarettesBoxCost, cigarettesInBox)
     const hourCost = hourlyCost(cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount)
     return(<div className="sidebar-statistic">
-      <h4>Information about your statistics</h4>
       <div>
         <StatisticElement label="Quit date:" value={getDateString(quitDate)} onClick={this._changeCurrentStatistic.bind(this, 'quitDate')}/>
         <StatisticElement label="Cigarettes smoked per day:" value={cigarettesPerDayCount} onClick={this._changeCurrentStatistic.bind(this, 'cigarettesPerDayCount')}/>

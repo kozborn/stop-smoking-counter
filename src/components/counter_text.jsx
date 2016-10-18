@@ -39,7 +39,7 @@ export const CounterText = React.createClass({
   render(){
     return (
       <div>
-        <h3>{this.state.counter}</h3>
+        <h1>{this.state.counter}</h1>
       </div>
     )
 

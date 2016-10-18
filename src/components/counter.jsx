@@ -98,7 +98,7 @@ export const Counter = React.createClass({
         <div className="col-lg-12">
           <div className="jumbotron">
             <div className="row">
-              <div className="col-md-8">
+              <div className="col-md-5">
                 <div className="information-form">
                   {this._formItem("How many cigarettes per day you were smoking?", this.state.cigarettesPerDayCount, this.resetCountPerDay)}
                   {this._formItem("How much cigarettes is in the box?", this.state.cigarettesInBox, this.resetCountInBox)}
@@ -109,7 +109,7 @@ export const Counter = React.createClass({
                 </div>
                 </div>
               </div>
-              <div className="col-md-4">
+              <div className="col-md-7">
                 <Statistics
                   quitDate={this.props.quitDate}
                   cigarettesPerDayCount={this.props.cigarettesPerDayCount}

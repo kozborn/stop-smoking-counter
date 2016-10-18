@@ -8,21 +8,26 @@ body
   
 .counter-text
   h3
-    font-size: 45px
+    font-size: 35px
 .sidebar-statistic
-  .label
-    color: #666
-    font-size: 12px
-    cursor: pointer
+  color: #333
+  font-size: 16px
+  cursor: pointer
+  .row
+    margin-bottom: 15px
+    &:nth-child(even)
+      color: #666
+      .label
+        color: #666
     &:hover
-      color: #aaa
-  dl
-    color: #666
-    font-size: 12px
-    margin-bottom: 5px
-    dt
-      padding-left: 0px
-
+      color: #999
+      .label
+        color: #999
+    .label
+      font-size: @font-size
+      color: @color
+      text-align: right
+      font-weight: bold
 .form-item
   margin-bottom: 15px
   label
@@ -33,6 +38,10 @@ body
 
 .react-date-field--theme-default
   border: none
+
+.statistic-header
+  h1
+    font-size: 75px
 
 .react-date-field__input
   display: block;
