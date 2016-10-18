@@ -1,11 +1,32 @@
+@import "OpenSans/stylesheet.css"
+
 html
 body
+  height: 100%
   background: #fff
+  font-family: 'open_sansregular'
+  background: rgb(254,255,255); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(254,255,255,1) 0%, rgba(234,247,255,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(254,255,255,1) 0%,rgba(234,247,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(254,255,255,1) 0%,rgba(234,247,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   
+#app
+  border-top: 1px solid #AFE2FF
+  
+#app > .container-fluid
+  border-top: 1px solid #fff
+
 .counter
   position: relative
   margin-top: 20px
   
+.jumbotron
+  background: rgb(214,249,255); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(214,249,255,1) 0%, rgba(158,232,250,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(214,249,255,1) 0%,rgba(158,232,250,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(214,249,255,1) 0%,rgba(158,232,250,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  box-shadow: 3px 3px 15px #666
+
 .counter-text
   h3
     font-size: 35px
@@ -24,10 +45,10 @@ body
       .label
         color: #999
     .label
+      font-family: 'open_sansbold'
       font-size: @font-size
       color: @color
       text-align: right
-      font-weight: bold
 .form-item
   margin-bottom: 15px
   label
@@ -60,3 +81,16 @@ body
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  
+.already-saved-counter
+  position: absolute
+  top: 10px
+  right: 10px
+  font-family: 'open_sansbold'
+  border-radius: 10px
+  padding: 10px 25px
+  background: rgb(214,249,255); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(214,249,255,1) 0%, rgba(158,232,250,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(214,249,255,1) 0%,rgba(158,232,250,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(214,249,255,1) 0%,rgba(158,232,250,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  box-shadow: 3px 3px 5px #666

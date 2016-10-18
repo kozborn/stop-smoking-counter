@@ -116,12 +116,22 @@ calculateSeconds(timestamp) {
   getHeader() {
     const label = this.getLabel()
     const value = this.getValue()
-    return <h1>{label} : <strong>{value}</strong></h1>
+    return <h1>{label}: <strong>{value}</strong></h1>
+  },
+
+  getAlreadySaved(){
+    if(this.props.currentStatistic!='alreadySaved'){
+      return <div className="already-saved-counter">
+         <div>{parseFloat(this.state.alreadySaved).toFixed(4) + " PLN"}</div> 
+      </div>
+    }else 
+    return null;
   },
 
   render(){
     return (
       <div className="statistic-header text-center">
+        {this.getAlreadySaved()}
         {this.getHeader()}
       </div>
     )
