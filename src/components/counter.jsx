@@ -45,7 +45,7 @@ export const Counter = React.createClass({
   },
 
   getDateComponent(){
-    if(this.props.quitDate){
+    if(this.props.date){
       return (<div className="form-item row">
           <label className="col-md-6 text-right">
             Change your quit date
@@ -54,7 +54,7 @@ export const Counter = React.createClass({
             <DateField
               dateFormat="YYYY-MM-DD HH:mm:ss"
               forceValidDate={true}
-              defaultValue={this.props.quitDate}
+              defaultValue={this.props.date}
               >
               <TransitionView>
                 <Calendar onChange={this.updateDate} />
@@ -111,7 +111,7 @@ export const Counter = React.createClass({
               </div>
               <div className="col-md-7">
                 <Statistics
-                  quitDate={this.props.quitDate}
+                  date={this.props.date}
                   cigarettesPerDayCount={this.props.cigarettesPerDayCount}
                   cigarettesInBox={this.props.cigarettesInBox}
                   cigarettesBoxCost={this.props.cigarettesBoxCost}

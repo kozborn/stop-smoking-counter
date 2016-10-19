@@ -44,7 +44,7 @@ export const Statistics = React.createClass({
   },
 
   calculateSeconds(timestamp) {
-    return Math.floor((timestamp - this.props.quitDate) / 1000) 
+    return Math.floor((timestamp - this.props.date) / 1000) 
   },
 
   calculateMinutes() {
@@ -68,12 +68,12 @@ export const Statistics = React.createClass({
   },
 
   render() {
-    const {quitDate, cigarettesPerDayCount, cigarettesBoxCost, cigarettesInBox} = this.props
+    const {date, cigarettesPerDayCount, cigarettesBoxCost, cigarettesInBox} = this.props
     const cigareteCost = eachCigareteCost(cigarettesBoxCost, cigarettesInBox)
     const hourCost = hourlyCost(cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount)
     return(<div className="sidebar-statistic">
       <div>
-        <StatisticElement label="Quit date:" value={getDateString(quitDate)} onClick={this._changeCurrentStatistic.bind(this, 'quitDate')}/>
+        <StatisticElement label="Quit date:" value={getDateString(date)} onClick={this._changeCurrentStatistic.bind(this, 'date')}/>
         <StatisticElement label="Cigarettes smoked per day:" value={cigarettesPerDayCount} onClick={this._changeCurrentStatistic.bind(this, 'cigarettesPerDayCount')}/>
         <StatisticElement label="Cigarettes cost:" value= {cigarettesBoxCost} onClick={this._changeCurrentStatistic.bind(this, 'cigarettesBoxCost')} />
         <StatisticElement label="Cigarettes in pack:" value= {cigarettesInBox} onClick={this._changeCurrentStatistic.bind(this, 'cigarettesInBox')}/>

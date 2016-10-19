@@ -9,7 +9,7 @@ export function sum(state, number) {
 }
 
 export function setDate(state, date) {
-  return state.set('quitDate', date)
+  return state.set('date', date)
 }
 
 export function currentStatistic(state, choice) {
@@ -28,8 +28,12 @@ export default function(state = Map(), action) {
       })
     case 'SET_STATE':
       return setState(state, action.state);
+    case "UPDATE_DATE":
+      return setState(state, {date: action.date})
     case 'DATA_CHANGED':
       return setState(state, {
+        _id: action._id,
+        _rev: action._rev,
         date: action.date,
         name: action.name,
         cigarettesPerDayCount: action.cigarettesPerDayCount,

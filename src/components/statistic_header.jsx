@@ -32,7 +32,7 @@ export const StatisticHeader = React.createClass({
   },
 
 calculateSeconds(timestamp) {
-    return Math.floor((timestamp - this.props.quitDate) / 1000) 
+    return Math.floor((timestamp - this.props.date) / 1000) 
   },
 
   calculateMinutes() {
@@ -55,7 +55,7 @@ calculateSeconds(timestamp) {
     switch(this.props.currentStatistic){
       case "secondsElapsed": 
         return 'Seconds Elapsed'
-      case "quitDate":
+      case "date":
         return 'Quit date'
       case "cigarettesPerDayCount":
         return 'Cigarettes per day count'
@@ -81,15 +81,15 @@ calculateSeconds(timestamp) {
   },
 
   getValue() {
-    const {quitDate, cigarettesPerDayCount, cigarettesBoxCost, cigarettesInBox} = this.props
+    const {date, cigarettesPerDayCount, cigarettesBoxCost, cigarettesInBox} = this.props
     const cigareteCost = eachCigareteCost(cigarettesBoxCost, cigarettesInBox)
     const hourCost = hourlyCost(cigarettesBoxCost, cigarettesInBox, cigarettesPerDayCount)
 
     switch(this.props.currentStatistic){
       case "secondsElapsed": 
         return this.state.secondsElapsed + "s"
-      case "quitDate":
-        return getDateString(quitDate)
+      case "date":
+        return getDateString(date)
       case "cigarettesPerDayCount":
         return cigarettesPerDayCount
       case 'cigarettesBoxCost': 

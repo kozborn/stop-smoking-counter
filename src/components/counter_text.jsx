@@ -10,11 +10,11 @@ export const CounterText = React.createClass({
   },
 
   propTypes: {
-    quitDate: React.PropTypes.number
+    date: React.PropTypes.number
   },
 
   startCounter() {
-    let timestamp = this.props.quitDate
+    let timestamp = this.props.date
     this.interval = setInterval(() => {
      this.setState({counter: this.calculateTime(Date.now())})
     }, 1000)
@@ -22,9 +22,9 @@ export const CounterText = React.createClass({
   },
 
   calculateTime(date) {
-    if(!this.props.quitDate)
+    if(!this.props.date)
       return 'Start quitting'
-    const secondsElapsed = Math.floor((date - this.props.quitDate) / 1000)
+    const secondsElapsed = Math.floor((date - this.props.date) / 1000)
     return formatCounter2(secondsElapsed)
   },
 

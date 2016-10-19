@@ -42,7 +42,7 @@ const store = createStore(reducer, applyMiddleware(thunk, logger, crashReporter)
 store.dispatch({
   type: 'SET_STATE',
   state: {
-    quitDate: null
+    date: null
   }
 });
 

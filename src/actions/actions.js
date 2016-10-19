@@ -1,22 +1,16 @@
 const url = "http://piotrkozubek.pl:5984/stop-smoking" 
 import {fromJS} from 'immutable'
 
-export function changeCounter(number = 1){
-  return {
-    type: 'CHANGE',
-    number
-  }
-}
 
 export function readFromLocalStorage(){
-  let data = localStorage.getItem('smokingStoppedDate') ? localStorage.getItem('smokingStoppedDate'): Date.now()
+  let date = localStorage.getItem('date') ? localStorage.getItem('date'): Date.now()
   let cigarettesPerDayCount = localStorage.getItem('cigarettesPerDayCount') ? localStorage.getItem('cigarettesPerDayCount'): 0
   let cigarettesInBox = localStorage.getItem('cigarettesInBox') ? localStorage.getItem('cigarettesInBox'): 20
   let cigarettesBoxCost = localStorage.getItem('cigarettesBoxCost') ? localStorage.getItem('cigarettesBoxCost') : 20
   let currentStatistic = localStorage.getItem('currentStatistic') ? localStorage.getItem('currentStatistic') : "secondsElapsed"
   return {
     type: "DATA_CHANGED",
-    date: parseInt(data),
+    date: parseInt(date),
     cigarettesPerDayCount: cigarettesPerDayCount,
     cigarettesInBox: cigarettesInBox,
     cigarettesBoxCost: cigarettesBoxCost,
@@ -25,8 +19,8 @@ export function readFromLocalStorage(){
 }
 
 export function reset(){
-  let data = Date.now();
-  localStorage.setItem('smokingStoppedDate', parseInt(data))
+  let date = Date.now();
+  localStorage.setItem('date', parseInt(date))
   localStorage.setItem('cigarettesBoxCost', 0)
   localStorage.setItem('cigarettesInBox', 0)
   localStorage.setItem('cigarettesPerDayCount', 0)
@@ -36,11 +30,11 @@ export function reset(){
 }
 
 export function setStartDate(timestamp = null){
-  let data = timestamp ? timestamp : Date.now();
-  localStorage.setItem('smokingStoppedDate', parseInt(data))
+  let date = timestamp ? timestamp : Date.now();
+  localStorage.setItem('date', parseInt(date))
   return {
-    type: "DATA_CHANGED",
-    date: parseInt(data)
+    type: "UPDATE_DATE",
+    date: parseInt(date)
   }
 }
 
@@ -117,20 +111,19 @@ export function fetchingStop(){
   }
 }
 
+
 export function readFromCouchDB(docId){
   return function(dispatch, getState){
     dispatch(fetchingStart())
-    $.ajax({
-      url: url + "/" + docId
-    })
-    .done(function( data ) {
-      const fetched = fromJS(JSON.parse(data))
+    fetch(url, docId)
+    .done(function( date ) {
+      const fetched = fromJS(JSON.parse(date))
       dispatch({
         type: "DATA_CHANGED",
-        docId: fetched.get('_id'),
-        rev: fetched.get('rev'),
+        _id: fetched.get('_id'),
+        _rev: fetched.get('_rev'),
         name: fetched.get('name'),
-        date: parseInt(fetched.get('smokingStoppedDate')),
+        date: parseInt(fetched.get('date')),
         cigarettesPerDayCount: fetched.get('cigarettesPerDayCount'),
         cigarettesInBox: fetched.get('cigarettesInBox'),
         cigarettesBoxCost: fetched.get('cigarettesBoxCost'),
@@ -139,9 +132,56 @@ export function readFromCouchDB(docId){
       dispatch(fetchingStop())
     })
   }
-
 }
 
-export function save(docId, data){
+function fetch(url, docId){
+  return $.ajax({
+    url: url + "/" + docId
+  })
+}
 
+function saving() {
+  return {type: "SAVING"}
+}
+
+function saved(response){
+  console.log(response)
+  return {type: "SAVED"}
+}
+
+function error(error){
+  console.log(error)
+  return {type: "ERROR"}
+}
+
+function _save(url, data){
+  return $.ajax({
+    url: url,
+    method: "PUT",
+    contentType:"application/json; charset=utf-8",
+    dataType:"json",
+    data: JSON.stringify(data.toJS())
+  })
+}
+
+export function save(docId = null, data = null){
+  let newUrl = docId ? (url + '/' + docId) : url
+  return function(dispatch, getState){
+    dispatch(saving())
+    let doc = data ? data : getState()
+    _save(newUrl, doc)
+    .done(function(response){
+      return dispatch(saved(response))
+    }).fail(function(err){
+      if(err.status === 409){
+        data = getState()
+        fetch(url, docId)
+        .done(function(response){
+          data = data.set('_rev', JSON.parse(response)._rev)
+          dispatch(save(docId, data))
+        })
+      }
+      return dispatch(error(err))
+    })
+  }
 }
